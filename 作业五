@@ -1,0 +1,129 @@
+%作业四：设计三种滤波器，分别提取出信号中各频率分量.
+%姓名：洪泽汇；学号：S202176104
+%--------------------------原始信号----------------------------------------
+clear all;
+close all
+n=2048*8;
+t=linspace(0,2,n);%时间横坐标
+y=cos(2*pi*50*t)+0.2*cos(2*pi*200*t)+5*cos(2*pi*1000*t);%生成连续谐波信号
+figure('NumberTitle', 'off', 'Name', '原始信号，时域，频域图')
+subplot(2,1,1);plot(t,y,'LineWidth',1);
+axis([0 0.04 -7 7])%设置图像显示范围
+grid on;
+title('连续谐波信号');
+ylabel('Amplitude');
+xlabel('time（s）');
+%画出频域图
+L = length(y);
+NFFT = 2^nextpow2(L);%快速傅里叶变换的点数必须为2的n次方
+%%将幅值量钢化
+Yf1 = fft(y,NFFT);
+Yf=Yf1/L;
+Yf = 2*abs(Yf(1:NFFT/2+1));
+f = (n/2)/2*linspace(0,1,NFFT/2+1);
+subplot(2,1,2);plot(f,Yf,'LineWidth',1);
+axis([0 1100 0 5.5])
+grid on;
+title('频域图');
+ylabel('Amplitude');
+xlabel('Frequency/Hz');
+%--------------------------------------------------------------------------
+%-------------------------进行低通滤波-------------------------------------
+fc1=1;%上截止频率
+fc2=80;%下截止频率
+%归一化频率计算
+v1=fc1/(n/2);
+v2=fc2/(n/2);
+n1=150;%滤波器系数长度
+b=fir1(n1,v2,blackman(n1+1));%生成fir示波器并加窗
+figure('NumberTitle', 'off', 'Name', '滤波器频率特性')
+freqz(b,1,512);
+y1=filter(b,1,y);
+figure('NumberTitle', 'off', 'Name', '低通滤波')
+subplot(2,1,1);plot(t,y1,'LineWidth',1);
+axis([0 0.2 -1.2 1.2]);
+grid on;
+title('连续谐波信号');
+ylabel('Amplitude');
+xlabel('time（s）');
+%画出频域图
+L = length(y1);
+NFFT = 2^nextpow2(L);%快速傅里叶变换的点数必须为2的n次方
+%%将幅值量钢化
+Yf1 = fft(y1,NFFT);
+Yf=Yf1/L;
+Yf = 2*abs(Yf(1:NFFT/2+1));
+f = (n/2)/2*linspace(0,1,NFFT/2+1);
+subplot(2,1,2);plot(f,Yf,'LineWidth',1);
+axis([0 100 0 1.2])
+grid on;
+title('频域图');
+ylabel('Amplitude');
+xlabel('Frequency/Hz');
+%--------------------------------------------------------------------------
+%-------------------------进行带通滤波-------------------------------------
+fc1=220;%上截止频率
+fc2=900;%下截止频率
+%归一化频率计算
+v1=fc1/(n/2);
+v2=fc2/(n/2);
+n1=250;%滤波器系数长度
+b=fir1(n1,[v1 v2],blackman(n1+1));%生成fir示波器并加窗
+figure('NumberTitle', 'off', 'Name', '带通滤波器频率特性')
+freqz(b,1,512);
+y1=filter(b,1,y);
+figure('NumberTitle', 'off', 'Name', '带通滤波')
+subplot(2,1,1);plot(t,y1,'LineWidth',1);
+axis([0 0.2 -0.4 0.4]);
+grid on;
+title('连续谐波信号');
+ylabel('Amplitude');
+xlabel('time（s）');
+%画出频域图
+L = length(y1);
+NFFT = 2^nextpow2(L);%快速傅里叶变换的点数必须为2的n次方
+%%将幅值量钢化
+Yf1 = fft(y1,NFFT);
+Yf=Yf1/L;
+Yf = 2*abs(Yf(1:NFFT/2+1));
+f = (n/2)/2*linspace(0,1,NFFT/2+1);
+subplot(2,1,2);plot(f,Yf,'LineWidth',1);
+axis([0 300 0 0.5])
+grid on;
+title('频域图');
+ylabel('Amplitude');
+xlabel('Frequency/Hz');
+%--------------------------------------------------------------------------
+%-------------------------进行高通滤波-------------------------------------
+fc1=50;%上截止频率
+fc2=900;%下截止频率
+%归一化频率计算
+v1=fc1/(n/2);
+v2=fc2/(n/2);
+n1=48;%滤波器系数长度
+b=fir1(n1,v2,'high',blackman(n1+1));%生成fir示波器并加窗
+figure('NumberTitle', 'off', 'Name', '高通滤波器频率特性')
+freqz(b,1,512);
+y1=filter(b,1,y);
+figure('NumberTitle', 'off', 'Name', '高通滤波')
+subplot(2,1,1);plot(t,y1,'LineWidth',1);
+axis([0 0.04 -7 7]);
+grid on;
+title('连续谐波信号');
+ylabel('Amplitude');
+xlabel('time（s）');
+%画出频域图
+L = length(y1);
+NFFT = 2^nextpow2(L);%快速傅里叶变换的点数必须为2的n次方
+%%将幅值量钢化
+Yf1 = fft(y1,NFFT);
+Yf=Yf1/L;
+Yf = 2*abs(Yf(1:NFFT/2+1));
+f = (n/2)/2*linspace(0,1,NFFT/2+1);
+subplot(2,1,2);plot(f,Yf,'LineWidth',1);
+axis([0 1200 0 5.5])
+grid on;
+title('频域图');
+ylabel('Amplitude');
+xlabel('Frequency/Hz');
+%--------------------------------------------------------------------------
