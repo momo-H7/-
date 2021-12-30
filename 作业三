@@ -1,0 +1,433 @@
+%作业三：窗函数截断
+%姓名：洪泽汇；学号：S202176104
+%-------------------------------生成原始信号-------------------------------
+n=2048*4;
+t=linspace(0,4,n);%时间横坐标
+y=cos(2*pi*45*t)+0.1*cos(2*pi*50*t);%生成连续谐波信号
+figure (1)
+subplot(2,1,1);plot(t,y);
+axis([0 1 -1.5 1.5])%设置图像显示范围
+grid on;
+title('连续谐波信号');
+ylabel('Amplitude');
+xlabel('time（s）');
+%画出频域图
+L = length(y);
+NFFT = 2^nextpow2(L);%快速傅里叶变换的点数必须为2的n次方
+
+%%将幅值量钢化
+Yf1 = fft(y,NFFT);
+Yf=Yf1/L;
+
+
+Yf = 2*abs(Yf(1:NFFT/2+1));
+f = (2048)/2*linspace(0,1,NFFT/2+1);
+subplot(2,1,2);plot(f,Yf);
+axis([0 100 0 1.2])
+grid on;
+title('频域图');
+xlabel('Frequency/Hz');
+ylabel('Amplitude');
+%--------------------------------------------------------------------------
+%----------------------------------------------矩形窗的截断长度保持为0.4s，采样频率分别为40Hz、60Hz、100Hz、500Hz、800Hz------------------------------------
+%------------矩形窗的截断长度保持为0.4s，采样频率分别为40Hz----------------
+n1=40;%采样频率为40
+t1=0:1/n1:0.4;
+win=rectwin(length(t1));
+y1=cos(2*pi*45*t1)+0.1*cos(2*pi*50*t1);
+yt1 = y1.*win';%信号加窗
+figure (2)
+subplot(5,2,1);plot(t1,yt1);
+axis([0 0.4 -1.5 1.5])%设置图像显示范围
+grid on;
+title('矩形窗，采样率40Hz');
+ylabel('Amplitude');
+xlabel('time（s）');
+
+L = length(y1);
+NFFT = length(y1);%快速傅里叶变换的点数必须为2的n次方
+%%将幅值量钢化
+Yf1 = fft(yt1,NFFT);
+Yf=Yf1/L;
+Yf = 2*abs(Yf(1:NFFT/2+1));
+f = (n1)/2*linspace(0,1,NFFT/2+1);
+subplot(5,2,2);plot(f,Yf);
+axis([0 100 0 1.2])
+grid on;
+title('频域图');
+ylabel('Amplitude');
+xlabel('Frequency/Hz');
+
+
+%--------------------------------------------------------------------------
+%------------矩形窗的截断长度保持为0.4s，采样频率分别为60Hz----------------
+n2=60;%采样频率为60
+t1=0:1/n2:0.4;
+win=rectwin(length(t1));
+y1=cos(2*pi*45*t1)+0.1*cos(2*pi*50*t1);
+yt1 = y1.*win';%信号加窗
+figure (2)
+subplot(5,2,3);plot(t1,yt1);
+axis([0 0.4 -1.5 1.5])%设置图像显示范围
+grid on;
+title('矩形窗，采样率60Hz');
+ylabel('Amplitude');
+xlabel('time（s）');
+
+L = length(y1);
+NFFT = length(y1);%快速傅里叶变换的点数必须为2的n次方
+%%将幅值量钢化
+Yf1 = fft(yt1,NFFT);
+Yf=Yf1/L;
+Yf = 2*abs(Yf(1:NFFT/2+1));
+f = (n2)/2*linspace(0,1,NFFT/2+1);
+subplot(5,2,4);plot(f,Yf);
+axis([0 100 0 1.2])
+grid on;
+title('频域图');
+ylabel('Amplitude');
+xlabel('Frequency/Hz');
+
+
+%--------------------------------------------------------------------------
+%------------矩形窗的截断长度保持为0.4s，采样频率分别为100Hz----------------
+n2=100;%采样频率为100
+t1=0:1/n2:0.4;
+win=rectwin(length(t1));
+y1=cos(2*pi*45*t1)+0.1*cos(2*pi*50*t1);
+yt1 = y1.*win';%信号加窗
+figure (2)
+subplot(5,2,5);plot(t1,yt1);
+axis([0 0.4 -1.5 1.5])%设置图像显示范围
+grid on;
+title('矩形窗，采样率100Hz');
+ylabel('Amplitude');
+xlabel('time（s）');
+
+L = length(y1);
+NFFT = length(y1);%快速傅里叶变换的点数必须为2的n次方
+%%将幅值量钢化
+Yf1 = fft(yt1,NFFT);
+Yf=Yf1/L;
+Yf = 2*abs(Yf(1:NFFT/2+1));
+f = (n2)/2*linspace(0,1,NFFT/2+1);
+subplot(5,2,6);plot(f,Yf);
+axis([0 100 0 1.2])
+grid on;
+title('频域图');
+ylabel('Amplitude');
+xlabel('Frequency/Hz');
+
+%--------------------------------------------------------------------------
+%------------矩形窗的截断长度保持为0.4s，采样频率分别为500Hz----------------
+n2=500;%采样频率为500
+t1=0:1/n2:0.4;
+win=rectwin(length(t1));
+y1=cos(2*pi*45*t1)+0.1*cos(2*pi*50*t1);
+yt1 = y1.*win';%信号加窗
+figure (2)
+subplot(5,2,7);plot(t1,yt1);
+axis([0 0.4 -1.5 1.5])%设置图像显示范围
+grid on;
+title('矩形窗，采样率500Hz');
+ylabel('Amplitude');
+xlabel('time（s）');
+
+L = length(y1);
+NFFT = length(y1);%快速傅里叶变换的点数必须为2的n次方
+%%将幅值量钢化
+Yf1 = fft(yt1,NFFT);
+Yf=Yf1/L;
+Yf = 2*abs(Yf(1:NFFT/2+1));
+f = (n2)/2*linspace(0,1,NFFT/2+1);
+subplot(5,2,8);plot(f,Yf);
+axis([0 100 0 1.2])
+grid on;
+title('频域图');
+ylabel('Amplitude');
+xlabel('Frequency/Hz');
+
+
+%--------------------------------------------------------------------------
+%------------矩形窗的截断长度保持为0.4s，采样频率分别为800Hz----------------
+n2=800;%采样频率为800
+t1=0:1/n2:0.4;
+win=rectwin(length(t1));
+y1=cos(2*pi*45*t1)+0.1*cos(2*pi*50*t1);
+yt1 = y1.*win';%信号加窗
+figure (2)
+subplot(5,2,9);plot(t1,yt1);
+axis([0 0.4 -1.5 1.5])%设置图像显示范围
+grid on;
+title('矩形窗，采样率800Hz');
+ylabel('Amplitude');
+xlabel('time（s）');
+
+L = length(y1);
+NFFT = length(y1);%快速傅里叶变换的点数必须为2的n次方
+%将幅值量钢化
+Yf1 = fft(yt1,NFFT);
+Yf=Yf1/L;
+Yf = 2*abs(Yf(1:NFFT/2+1));
+f = (n2)/2*linspace(0,1,NFFT/2+1);
+subplot(5,2,10);plot(f,Yf);
+axis([0 100 0 1.2])
+grid on;
+title('频域图');
+ylabel('Amplitude');
+xlabel('Frequency/Hz');
+
+%--------------------------------------------------------------------------
+%------------------------------------------------------------------------------------------------------------------------------------
+%--------------------------------------------------采样频率保持为200Hz，矩形窗的截断长度分别为0.05s、0.1s、0.4s、1.5s-----------------------------------
+
+%------------矩形窗的截断长度保持为0.05s，采样频率为200Hz----------------
+n1=200;%采样频率为40
+t=0.05;
+t1=0:1/n1:t;
+win=rectwin(length(t1));
+y1=cos(2*pi*45*t1)+0.1*cos(2*pi*50*t1);
+yt1 = y1.*win';%信号加窗
+figure (3)
+subplot(4,2,1);plot(t1,yt1);
+axis([0 t -1.5 1.5])%设置图像显示范围
+grid on;
+title('矩形窗的截断长度保持为0.05s，采样频率为200Hz');
+ylabel('Amplitude');
+xlabel('time（s）'); 
+
+L = length(y1);
+NFFT = length(y1);%快速傅里叶变换的点数必须为2的n次方
+%%将幅值量钢化
+Yf1 = fft(yt1,NFFT);
+Yf=Yf1/L;
+Yf = 2*abs(Yf(1:NFFT/2+1));
+f = (n1)/2*linspace(0,1,NFFT/2+1);
+subplot(4,2,2);plot(f,Yf);
+axis([0 100 0 1.2])
+grid on;
+title('频域图');
+xlabel('Frequency/Hz');
+ylabel('Amplitude');
+%--------------------------------------------------------------------------
+
+%------------矩形窗的截断长度保持为0.1s，采样频率为200Hz----------------
+n1=200;%采样频率为40
+t=0.1;
+t1=0:1/n1:t;
+win=rectwin(length(t1));
+y1=cos(2*pi*45*t1)+0.1*cos(2*pi*50*t1);
+yt1 = y1.*win';%信号加窗
+figure (3)
+subplot(4,2,3);plot(t1,yt1);
+axis([0 t -1.5 1.5])%设置图像显示范围
+grid on;
+title('矩形窗的截断长度保持为0.1s，采样频率为200Hz');
+ylabel('Amplitude');
+xlabel('time（s）'); 
+
+L = length(yt1);
+NFFT = length(yt1);%快速傅里叶变换的点数必须为2的n次方
+%%将幅值量钢化
+Yf1 = fft(yt1,NFFT);
+Yf=Yf1/L;
+Yf = 2*abs(Yf(1:NFFT/2+1));
+f = (n1)/2*linspace(0,1,NFFT/2+1);
+subplot(4,2,4);plot(f,Yf);
+axis([0 100 0 1.2])
+grid on;
+title('频域图');
+xlabel('Frequency/Hz');
+ylabel('Amplitude');
+%--------------------------------------------------------------------------
+
+%------------矩形窗的截断长度保持为0.4s，采样频率为200Hz----------------
+n1=200;%采样频率为200
+t=0.4;
+t1=0:1/n1:t;
+win=rectwin(length(t1));
+y1=cos(2*pi*45*t1)+0.1*cos(2*pi*50*t1);
+yt1 = y1.*win';%信号加窗
+figure (3)
+subplot(4,2,5);plot(t1,yt1);
+axis([0 t -1.5 1.5])%设置图像显示范围
+grid on;
+title('矩形窗的截断长度保持为0.4s，采样频率为200Hz');
+ylabel('Amplitude');
+xlabel('time（s）'); 
+
+L = length(y1);
+NFFT = length(y1);%快速傅里叶变换的点数必须为2的n次方
+%%将幅值量钢化
+Yf1 = fft(yt1,NFFT);
+Yf=Yf1/L;
+Yf = 2*abs(Yf(1:NFFT/2+1));
+f = (n1)/2*linspace(0,1,NFFT/2+1);
+subplot(4,2,6);plot(f,Yf);
+axis([0 100 0 1.2])
+grid on;
+title('频域图');
+xlabel('Frequency/Hz');
+ylabel('Amplitude');
+%--------------------------------------------------------------------------
+%------------矩形窗的截断长度保持为1.5s，采样频率为200Hz-------------------
+n1=200;%采样频率为200
+t=1.5;
+t1=0:1/n1:t;
+win=rectwin(length(t1));
+y1=cos(2*pi*45*t1)+0.1*cos(2*pi*50*t1);
+yt1 = y1.*win';%信号加窗
+figure (3)
+subplot(4,2,7);plot(t1,yt1);
+axis([0 t -1.5 1.5])%设置图像显示范围
+grid on;
+title('矩形窗的截断长度保持为1.5s，采样频率为200Hz');
+ylabel('Amplitude');
+xlabel('time（s）'); 
+
+L = length(y1);
+NFFT = length(y1);%快速傅里叶变换的点数必须为2的n次方
+%%将幅值量钢化
+Yf1 = fft(yt1,NFFT);
+Yf=Yf1/L;
+Yf = 2*abs(Yf(1:NFFT/2+1));
+f = (n1)/2*linspace(0,1,NFFT/2+1);
+subplot(4,2,8);plot(f,Yf);
+axis([0 100 0 1.2])
+grid on;
+title('频域图');
+xlabel('Frequency/Hz');
+ylabel('Amplitude');
+%--------------------------------------------------------------------------
+%------------------------------------------------------------------------------------------------------------------------------------
+%------------------采样频率保持为200Hz，截断长度保持为0.5s，窗函数类型分别为矩形窗函数、高斯窗函数、汉宁窗函数、三角窗函数--------------------------------------------
+%------------矩形窗的截断长度保持为0.5s，采样频率为200Hz----------------
+n1=200;%采样频率为200
+t=0.5;
+t1=0:1/n1:t;
+win=rectwin(length(t1));
+y1=cos(2*pi*45*t1)+0.1*cos(2*pi*50*t1);
+yt1 = y1.*win';%信号加窗
+figure('NumberTitle', 'off', 'Name', '不同窗函数对比图')
+subplot(4,2,1);plot(t1,yt1);
+axis([0 t -1.5 1.5])%设置图像显示范围
+grid on;
+title('矩形窗的截断长度保持为0.5s，采样频率为200Hz');
+ylabel('Amplitude');
+xlabel('time（s）'); 
+
+L = length(y1);
+NFFT = length(y1);%快速傅里叶变换的点数必须为2的n次方
+%%将幅值量钢化
+Yf1 = fft(yt1,NFFT);
+Yf=Yf1/L;
+Yf = 2*abs(Yf(1:NFFT/2+1));
+f = (n1)/2*linspace(0,1,NFFT/2+1);
+subplot(4,2,2);plot(f,Yf);
+axis([0 100 0 1.2])
+grid on;
+title('频域图');
+xlabel('Frequency/Hz');
+ylabel('Amplitude');
+%--------------------------------------------------------------------------
+
+%------------高斯窗的截断长度保持为0.5s，采样频率为200Hz----------------
+n1=200;%采样频率为200
+t=0.5;
+t1=0:1/n1:t;
+win=gausswin(length(t1));
+y1=cos(2*pi*45*t1)+0.1*cos(2*pi*50*t1);
+yt1 = y1.*win';%信号加窗
+%figure('NumberTitle', 'off', 'Name', '不同窗函数对比图')
+subplot(4,2,3);plot(t1,yt1);
+axis([0 t -1.5 1.5])%设置图像显示范围
+grid on;
+title('高斯窗的截断长度保持为0.5s，采样频率为200Hz');
+ylabel('Amplitude');
+xlabel('time（s）'); 
+
+L = length(y1);
+NFFT = length(y1);%快速傅里叶变换的点数必须为2的n次方
+%%将幅值量钢化
+Yf1 = fft(yt1,NFFT);
+Yf=Yf1/L;
+Yf = 2*abs(Yf(1:NFFT/2+1));
+f = (n1)/2*linspace(0,1,NFFT/2+1);
+subplot(4,2,4);plot(f,Yf);
+axis([0 100 0 1.2])
+grid on;
+title('频域图');
+xlabel('Frequency/Hz');
+ylabel('Amplitude');
+%--------------------------------------------------------------------------
+%------------汉宁窗的截断长度保持为0.5s，采样频率为200Hz----------------
+n1=200;%采样频率为200
+t=0.5;
+t1=0:1/n1:t;
+win=hann(length(t1));
+y1=cos(2*pi*45*t1)+0.1*cos(2*pi*50*t1);
+yt1 = y1.*win';%信号加窗
+%figure('NumberTitle', 'off', 'Name', '不同窗函数对比图')
+subplot(4,2,5);plot(t1,yt1);
+axis([0 t -1.5 1.5])%设置图像显示范围
+grid on;
+title('汉明窗的截断长度保持为0.5s，采样频率为200Hz');
+ylabel('Amplitude');
+xlabel('time（s）'); 
+
+L = length(y1);
+NFFT = length(y1);%快速傅里叶变换的点数必须为2的n次方
+%%将幅值量钢化
+Yf1 = fft(yt1,NFFT);
+Yf=Yf1/L;
+Yf = 2*abs(Yf(1:NFFT/2+1));
+f = (n1)/2*linspace(0,1,NFFT/2+1);
+subplot(4,2,6);plot(f,Yf);
+axis([0 100 0 1.2])
+grid on;
+title('频域图');
+xlabel('Frequency/Hz');
+ylabel('Amplitude');
+%--------------------------------------------------------------------------
+%------------三角窗的截断长度保持为0.5s，采样频率为200Hz----------------
+n1=200;%采样频率为200
+t=0.5;
+t1=0:1/n1:t;
+win=triang(length(t1));
+y1=cos(2*pi*45*t1)+0.1*cos(2*pi*50*t1);
+yt1 = y1.*win';%信号加窗
+%figure('NumberTitle', 'off', 'Name', '不同窗函数对比图')
+subplot(4,2,7);plot(t1,yt1);
+axis([0 t -1.5 1.5])%设置图像显示范围
+grid on;
+title('三角窗的截断长度保持为0.5s，采样频率为200Hz');
+ylabel('Amplitude');
+xlabel('time（s）'); 
+
+L = length(y1);
+NFFT = length(y1);%快速傅里叶变换的点数必须为2的n次方
+%%将幅值量钢化
+Yf1 = fft(yt1,NFFT);
+Yf=Yf1/L;
+Yf = 2*abs(Yf(1:NFFT/2+1));
+f = (n1)/2*linspace(0,1,NFFT/2+1);
+subplot(4,2,8);plot(f,Yf);
+axis([0 100 0 1.2])
+grid on;
+title('频域图');
+xlabel('Frequency/Hz');
+ylabel('Amplitude');
+%--------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
